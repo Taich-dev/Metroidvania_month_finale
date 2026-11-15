@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://cwcpoelrf4v8y"]
+
+[ext_resource type="Script" uid="uid://dfgb7ppfuvfdy" path="res://Scripts/PlayerScripts/player.gd" id="1_a3d8c"]
+[ext_resource type="Texture2D" uid="uid://codpy6ojh5h4x" path="res://Assets/Sprites/MageSprite/MageSprite_Compiled.png" id="2_xpcdj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8w0r3"]
+radius = 6.0
+height = 32.0
+
+[sub_resource type="Animation" id="Animation_cvnsp"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_vgqql"]
+resource_name = "WalkLeft"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_fkybt"]
+resource_name = "WalkRight"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.39999998, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
+_data = {
+&"Idle": SubResource("Animation_cvnsp"),
+&"RESET": SubResource("Animation_6t5aa"),
+&"WalkLeft": SubResource("Animation_vgqql"),
+&"WalkRight": SubResource("Animation_fkybt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
+size = Vector2(5, 15)
+
+[node name="Player" type="CharacterBody2D" unique_id=428751107]
+script = ExtResource("1_a3d8c")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1754732497]
+texture = ExtResource("2_xpcdj")
+hframes = 16
+vframes = 8
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=558305671]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_8w0r3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1283119685]
+libraries/ = SubResource("AnimationLibrary_x3wgy")
+autoplay = &"Idle"
+
+[node name="Weapon" type="Area2D" parent="." unique_id=1905081381]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon" unique_id=882791060]
+position = Vector2(13, -7)
+shape = SubResource("RectangleShape2D_8w0r3")
+debug_color = Color(0.95068914, 0.18816835, 0.3167725, 0.41960785)
